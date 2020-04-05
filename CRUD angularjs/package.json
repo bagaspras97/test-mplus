@@ -1,0 +1,15 @@
+{
+  "name": "belajar-angularjs",
+  "version": "1.0.0",
+  "description": "belajar angular",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "bagas",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.7.9",
+    "bootstrap": "^4.4.1"
+  }
+}

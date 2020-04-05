@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+  <head>
+    <title>CRUD AngularJS</title>
+    <script
+      type="text/javascript"
+      src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"
+    ></script>
+  </head>
+  <body ng-controller="productController">
+    <h3>Data Buku</h3>
+
+    <table cellpadding="2" cellspacing="2">
+      <tr>
+        <td>Id</td>
+        <td><input type="text" ng-model="id" /></td>
+      </tr>
+      <tr>
+        <td>title</td>
+        <td><input type="text" ng-model="title" /></td>
+      </tr>
+      <tr>
+        <td>author</td>
+        <td><input type="text" ng-model="author" /></td>
+      </tr>
+      <tr>
+        <td>date</td>
+        <td><input type="text" ng-model="date" /></td>
+      </tr>
+      <tr>
+        <td>number of pages</td>
+        <td><input type="text" ng-model="numofpages" /></td>
+      </tr>
+      <tr>
+        <td>type of book</td>
+        <td><input type="text" ng-model="typeofbook" /></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <input type="button" value="add" ng-click="add()" />
+          <input type="button" value="save" ng-click="edit()" />
+        </td>
+      </tr>
+    </table>
+
+    <table cellspacing="2" cellpadding="2" border="1">
+      <tr>
+        <th>id</th>
+        <th>title</th>
+        <th>author</th>
+        <th>date</th>
+        <th>number of pages</th>
+        <th>type of book</th>
+        <th>option</th>
+      </tr>
+      <tr ng-repeat="product in listProducts">
+        <td>{{product.id}}</td>
+        <td>{{product.title}}</td>
+        <td>{{product.author}}</td>
+        <td>{{product.date}}</td>
+        <td>{{product.numofpages}}</td>
+        <td>{{product.typeofbook}}</td>
+        <td>
+          <a href="#" ng-click="del(product.id)">Delete</a> |
+          <a href="#" ng-click="selectEdit(product.id)">Edit</a>
+        </td>
+      </tr>
+    </table>
+
+    <script type="text/javascript">
+      var myapp = angular.module("myapp", []);
+      myapp.controller("productController", function ($scope) {
+        $scope.listProducts = [
+          //   { id: "01", name: "Product 1", price: 4000, quantity: 20 },
+          //   { id: "02", name: "Product 2", price: 7000, quantity: 21 },
+          //   { id: "03", name: "Product 3", price: 3000, quantity: 22 },
+          //   { id: "04", name: "Product 4", price: 5000, quantity: 23 },
+          {
+            id: "1",
+            title: "ayat ayat cinta",
+            author: "Habiburrahman El Shirazy",
+            date: "2008",
+            numofpages: 418,
+            typeofbook: "romance, religi",
+          },
+        ];
+
+        $scope.add = function () {
+          $scope.listProducts.push({
+            id: $scope.id,
+            title: $scope.title,
+            author: $scope.author,
+            date: $scope.date,
+            numofpages: $scope.numofpages,
+            typeofbook: $scope.typeofbook,
+          });
+          $scope.id = "";
+          $scope.title = "";
+          $scope.author = "";
+          $scope.date = "";
+          $scope.numofpages = "";
+          $scope.typeofbook = "";
+        };
+
+        $scope.edit = function () {
+          var index = getSelectedIndex($scope.id);
+          $scope.listProducts[index].title = $scope.title;
+          $scope.listProducts[index].author = $scope.author;
+          $scope.listProducts[index].date = $scope.date;
+          $scope.listProducts[index].numofpages = $scope.numofpages;
+          $scope.listProducts[index].typeofbook = $scope.typeofbook;
+        };
+
+        $scope.selectEdit = function (id) {
+          var index = getSelectedIndex(id);
+          var product = $scope.listProducts[index];
+          $scope.id = product.id;
+          $scope.title = product.title;
+          $scope.author = product.author;
+          $scope.date = product.date;
+          $scope.numofpages = product.numofpages;
+          $scope.typeofbook = product.typeofbook;
+        };
+
+        $scope.del = function (id) {
+          var result = confirm("Are you sure");
+          if (result === true) {
+            var index = getSelectedIndex(id);
+            $scope.listProducts.splice(index, 1);
+          }
+        };
+
+        function getSelectedIndex(id) {
+          for (var i = 0; i < $scope.listProducts.length; i++)
+            if ($scope.listProducts[i].id == id) return i;
+          return -1;
+        }
+      });
+    </script>
+  </body>
+</html>
